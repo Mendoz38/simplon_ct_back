@@ -1,6 +1,6 @@
 const bookController = {
   findAll: (req, res) => {
-    res.status(200).json({ message: "xxxxxxxxxx !!" });
+    res.status(200).json({ message: "Yesss  !!" });
   },
   findById: (req, res) => {
     res.status(200).json({ result: req.params.id })
