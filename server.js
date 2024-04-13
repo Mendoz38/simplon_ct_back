@@ -1,14 +1,30 @@
+import dotenv from 'dotenv';
 import express from 'express';
-const app = express()
-const port = 3003
-const version = "v1"
+import cors from 'cors';
+import mongoose from 'mongoose';
+import swaggerUi from 'swagger-ui-express'
 
-import router from './routes/book-routes.js';
-//import router from './routes/user-routes.js';
+import specs from './config_swagger.js'
+import router from './routes/book_routes.js';
+//import router from './routes/user_routes.js';
 
-app.use(`/api/${version}/book`,router)
-//app.use(`/api/${version}/user`,router)
+dotenv.config();
+const app = express();
+const port = process.env.PORT;
+const version = process.env.VERSION;
+
+app.use(cors());
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+
+app.use(`/api/${version}/book`, router);
+//app.use(`/api/${version}/user`, router);
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Example app version ${version} listening on port ${port}`);
+});
+
+mongoose.connect('mongodb+srv://'+ process.env.mongoDB_user + ':'+ process.env.mongoDB_password +'@'+ process.env.mongoDB_cluster_url +'/'+ process.env.mongoDB_dbName +'?retryWrites=true&w=majority',)
+  .then(() => console.log('Connexion à MongoDB réussie !'))
+  .catch(() => console.log('Connexion à MongoDB échouée !'));
+
+  

@@ -1,6 +1,7 @@
 import express from 'express';
 const router = express.Router()
-import bookController from '../controllers/book-controllers.js';
+
+import bookController from '../controllers/book_controllers.js';
 
 router.get('/', bookController.findAll)
 router.get('/:id', bookController.findById)
