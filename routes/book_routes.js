@@ -5,6 +5,6 @@ import bookController from '../controllers/book_controllers.js';
 
 router.get('/', bookController.findAll)
 router.get('/:id', bookController.findById)
-router.post('/', bookController.create)
+router.post('/add', bookController.create)
 
 export default router

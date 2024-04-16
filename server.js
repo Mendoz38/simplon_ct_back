@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import express from 'express';
+import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import swaggerUi from 'swagger-ui-express'
@@ -13,8 +14,12 @@ const app = express();
 const port = process.env.PORT;
 const version = process.env.VERSION;
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.use(cors());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+
 
 app.use(`/api/${version}/book`, router);
 //app.use(`/api/${version}/user`, router);
