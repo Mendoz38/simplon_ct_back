@@ -7,7 +7,6 @@ import swaggerUi from 'swagger-ui-express'
 
 import specs from './config_swagger.js'
 import router from './routes/book_routes.js';
-//import router from './routes/user_routes.js';
 
 dotenv.config();
 const app = express();
@@ -20,9 +19,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
-
 app.use(`/api/${version}/book`, router);
-//app.use(`/api/${version}/user`, router);
 
 app.listen(port, () => {
   console.log(`Example app version ${version} listening on port ${port}`);

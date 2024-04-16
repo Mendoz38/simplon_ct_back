@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const bookSchema = new mongoose.Schema({
     id: String,
     date: Date,
-    heure: String,
+    heure: Number,
     pont: Number,
     client: {
       civilite: String,
@@ -20,7 +20,7 @@ const bookSchema = new mongoose.Schema({
     },
     timestamp: Number
 }, 
-// Spécification du nom de la collection
+// Nom de la collection
 {    collection: 'RDV' }
 );
   
