@@ -2,11 +2,9 @@ import bookDB from "../models/schema.js";
 import bookModels from "../models/book_models.js";
 import mail from "../lib/mailing.js";
 
-const date="2024-04-16T09:58:47.000+00:00";
-const heure=8;
 
 const bookController = {
-  /* Cherche tous les RDV (à supprimer ????? car ne sert à rien) */
+  /* Cherche tous les RDV  */
   findAll: (req, res) => {
     bookDB
       .find()
@@ -14,6 +12,18 @@ const bookController = {
       .catch((error) => res.status(400).json({ error }));
   },
 
+  checkRDV: async (req, res) => {
+    try {
+      const { date, heure } = req.body; 
+      const count = await bookModels.countReservations(date, heure);
+      //console.log("count", count)
+      res.json({ count });
+    } catch (error) {
+      //console.error("Erreur lors de la recherche par heure :", error);
+      res.status(500).json({ error: error.message });
+    }
+    
+  },
   /* Ajouter réservation */
   create: async (req, res) => {
     console.log("Ajouter réservation", req.body)
@@ -33,8 +43,8 @@ const bookController = {
         .json({ message: "Erreur lors de l'ajout du rendez-vous" });
     }
   },
-
-
+  
+/*
   findByHour: async (req, res) => {
     console.log("xxxxxxxxxxxxxx", req.body)
     try {
@@ -46,7 +56,7 @@ const bookController = {
       res.status(500).json({ error: error.message });
     }
   },
-
+*/
 
 
 };
