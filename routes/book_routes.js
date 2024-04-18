@@ -1,10 +1,10 @@
 import express from 'express';
-const router = express.Router()
-
 import bookController from '../controllers/book_controllers.js';
 
+const router = express.Router()
+
 router.get('/', bookController.findAll)
-router.get('/:id', bookController.findById)
+router.get('/check', bookController.findByHour)
 router.post('/add', bookController.create)
 
 export default router

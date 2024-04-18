@@ -1,66 +1,53 @@
-console.log("dans controllers");
 import bookDB from "../models/schema.js";
-import mail from "../lib/mailing.js"; 
+import bookModels from "../models/book_models.js";
+import mail from "../lib/mailing.js";
+
+const date="2024-04-16T09:58:47.000+00:00";
+const heure=8;
 
 const bookController = {
+  /* Cherche tous les RDV (à supprimer ????? car ne sert à rien) */
   findAll: (req, res) => {
     bookDB
       .find()
       .then((things) => res.status(200).json(things))
       .catch((error) => res.status(400).json({ error }));
   },
-  
-  findById: (req, res) => {
-    res.status(200).json({ result: req.params.id });
-  },
 
+  /* Ajouter réservation */
   create: async (req, res) => {
+    console.log("Ajouter réservation", req.body)
     try {
-    // Créer un nouvel objet client
-    const newClient = {
-      civilite: req.body.civilite,
-      nom: req.body.nom,
-      prenom: req.body.prenom,
-      email: req.body.email,
-      tel_mobile: req.body.tel_mobile,
-      tel_fixe: req.body.tel_fixe
-    };
+      const newReservation = await bookModels.createReservation(req.body);
+      res.status(201).json(newReservation);
 
-    // Créer un nouvel objet véhicule
-    const newVehicule = {
-      marque: req.body.marque,
-      modele: req.body.modele,
-      immatriculation: req.body.immatriculation
-    };
-
-    // Créer un nouvel objet RDV avec les sous-documents client et vehicule
-    const newRDV = new bookDB({
-      date: req.body.date,
-      heure: req.body.heure,
-      pont: req.body.pont, // Je ne sais pas si cette propriété est utilisée ailleurs
-      client: newClient,
-      vehicule: newVehicule,
-      timestamp: Date.now() // Si vous souhaitez enregistrer un horodatage
-    });
-
-
-    console.log("Dans le back", req.body);
-    const savedRDV = await newRDV.save();
-    console.log("savedRDV ", savedRDV);
-    res.status(201).json(savedRDV);
       // envoi du mail
-      console.log("EMAIL : ", req.body.mail)
-/*     mail(
+    /*       mail(
         req.body.mail,
-        "Confirmation de votre réservation",
+        `Confirmation de votre réservation le ${req.body.date} à  ${req.body.heure}h `,
       ); */
     } catch (error) {
       console.error("Erreur lors de l'ajout du rendez-vous :", error);
-      res.status(500).json({ message: "Erreur lors de l'ajout du rendez-vous" });
+      res
+        .status(500)
+        .json({ message: "Erreur lors de l'ajout du rendez-vous" });
     }
   },
 
-  
-};
 
+  findByHour: async (req, res) => {
+    console.log("xxxxxxxxxxxxxx", req.body)
+    try {
+      const { date, heure } = req.body; // Assurez-vous que les données sont envoyées en tant que query params
+      const count = await bookModels.countReservations(date, heure);
+      res.json({ count });
+    } catch (error) {
+      console.error("Erreur lors de la recherche par heure :", error);
+      res.status(500).json({ error: error.message });
+    }
+  },
+
+
+
+};
 export default bookController;
