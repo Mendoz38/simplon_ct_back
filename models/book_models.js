@@ -41,7 +41,7 @@ const bookModels = {
   countReservations: async (date, heure) => {
     try {
         const count = await bookDB.countDocuments({ date, heure });
-        console.log("Nombre de réservation : ", count)
+        // console.log("Nombre de réservation : ", count)
       return count;
     } catch (error) {
       throw new Error("Erreur lors du comptage des réservations : " + error.message);
