@@ -4,8 +4,8 @@ import mail from "../lib/mailing.js";
 import moment from "moment" ;
 moment.locale("fr");
 
-
 const bookController = {
+
   /* Cherche tous les RDV  */
   findAll: (req, res) => {
     bookDB

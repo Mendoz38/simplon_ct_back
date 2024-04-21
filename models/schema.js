@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 
-const bookSchema = new mongoose.Schema({
-    date: Date, 
+const bookSchema = new mongoose.Schema(
+  {
+    date: Date,
     heure: Number,
     client: {
       civilite: String,
@@ -9,19 +10,18 @@ const bookSchema = new mongoose.Schema({
       prenom: String,
       email: String,
       tel_mobile: String,
-      compagnie: String
+      compagnie: String,
     },
     vehicule: {
       marque: String,
       modele: String,
-      immatriculation: String
+      immatriculation: String,
     },
-    timestamp: Number
-}, 
-// Nom de la collection
-{    collection: 'RDV' }
+    timestamp: Number,
+  },
+  { collection: "RDV" }
 );
-  
-  const bookDB = mongoose.model('RDV', bookSchema);
-  
-  export default bookDB;
+
+const bookDB = mongoose.model("RDV", bookSchema);
+
+export default bookDB;
