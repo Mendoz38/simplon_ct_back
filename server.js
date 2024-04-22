@@ -10,7 +10,7 @@ import router from './routes/book_routes.js';
 dotenv.config();
 const app = express();
 const port = process.env.PORT;
-const version = "v2";
+const version = "v1";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
