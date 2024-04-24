@@ -2,18 +2,18 @@
   "swagger": "2.0",
   "info": {
     "title": "TruckBuster",
-    "description": "Centrale de réservation pour camions",
+    "description": "API pour la centrale de réservation pour camions",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "localhost:5000/api/v1/book",
   "basePath": "/",
   "schemes": [
     "http"
   ],
   "paths": {
-    "/constant": {
+    "/": {
       "get": {
-        "description": "",
+        "description": "Tous les Rendez-vous",
         "responses": {
           "200": {
             "description": "OK"
@@ -24,9 +24,9 @@
         }
       }
     },
-    "/": {
+    "/constant": {
       "get": {
-        "description": "",
+        "description": "Toutes les constantes pour faire fonctionner l'application",
         "responses": {
           "200": {
             "description": "OK"
@@ -39,7 +39,7 @@
     },
     "/check": {
       "post": {
-        "description": "",
+        "description": "Compte le nombre de RDV à la date (format 2024-04-26T00:00:00.000Z) et l'heure souhaité",
         "parameters": [
           {
             "name": "body",
@@ -48,10 +48,10 @@
               "type": "object",
               "properties": {
                 "date": {
-                  "example": "any"
+                  "example": "2024-04-26T00:00:00.000Z"
                 },
                 "heure": {
-                  "example": "any"
+                  "example": "10"
                 }
               }
             }
@@ -69,7 +69,7 @@
     },
     "/add": {
       "post": {
-        "description": "",
+        "description": "Ajout d'un RDV",
         "parameters": [
           {
             "name": "body",
@@ -78,9 +78,6 @@
               "type": "object",
               "properties": {
                 "date": {
-                  "example": "any"
-                },
-                "mail": {
                   "example": "any"
                 }
               }

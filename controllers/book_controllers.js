@@ -14,6 +14,7 @@ const bookController = {
       .catch((error) => res.status(400).json({ error }));
   },
 
+  /* Compter le nombre de RDV à telle date et telle heure  */
   checkRDV: async (req, res) => {
     try {
       const { date, heure } = req.body; 
@@ -26,6 +27,7 @@ const bookController = {
     }
     
   },
+
   /* Ajouter réservation */
   create: async (req, res) => {
     console.log("Ajouter réservation", req.body)
@@ -34,9 +36,8 @@ const bookController = {
     try {
       const newReservation = await bookModels.createReservation(req.body);
       res.status(201).json(newReservation);
-
       // envoi du mail
-      // mail( req.body.mail,`Confirmation de votre réservation le ${date} à  ${req.body.heure}h `, ); 
+      mail( req.body.mail,`Confirmation de votre réservation le ${date} à  ${req.body.heure}h `, ); 
     } catch (error) {
       console.error("Erreur lors de l'ajout du rendez-vous :", error);
       res
