@@ -4,8 +4,8 @@ import mail from "../lib/mailing.js";
 import moment from "moment" ;
 moment.locale("fr");
 
-const bookController = {
 
+const bookController = {
   /* Cherche tous les RDV  */
   findAll: (req, res) => {
     bookDB
@@ -36,7 +36,7 @@ const bookController = {
       res.status(201).json(newReservation);
 
       // envoi du mail
-      mail( req.body.mail,`Confirmation de votre réservation le ${date} à  ${req.body.heure}h `, ); 
+      // mail( req.body.mail,`Confirmation de votre réservation le ${date} à  ${req.body.heure}h `, ); 
     } catch (error) {
       console.error("Erreur lors de l'ajout du rendez-vous :", error);
       res

@@ -11,6 +11,7 @@ const bookSchema = new mongoose.Schema(
       email: String,
       tel_mobile: String,
       compagnie: String,
+      driver: String,
     },
     vehicule: {
       marque: String,

@@ -1,4 +1,4 @@
-import constantDB from "../models/schema_constatnt.js";
+import constantDB from "../models/schema_constant.js";
 
 const constantController = {
   getConstant: (req, res) => {
